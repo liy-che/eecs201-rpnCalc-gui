@@ -20,3 +20,7 @@ class TestBasics(unittest.TestCase):
     def test_decimal(self):
         result = rpn.calculate('2.3 6 +')
         self.assertEqual(8.3, result)
+    def test_reuse(self):
+        previous = rpn.calculate('3 4 +')
+        result = rpn.calculate('4 :ans *')
+        self.assertEqual(28, result)
