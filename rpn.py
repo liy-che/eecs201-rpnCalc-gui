@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
-
+import helper
 import operator
+import math
 import readline
 
 operators = {
@@ -8,7 +9,13 @@ operators = {
     '-': operator.sub,
     '*': operator.mul,
     '/': operator.truediv,
+    '%': helper.percent,
     '^': operator.pow,
+    '//': operator.floordiv,
+    '!': math.factorial,
+    '&': operator.and_,
+    '|': operator.or_,
+    '~': operator.invert,
 }
 
 def calculate(arg):
@@ -20,8 +27,18 @@ def calculate(arg):
         except ValueError:
             function = operators[token]
             arg2 = stack.pop()
-            arg1 = stack.pop()
-            result = function(arg1, arg2)
+            if token != '~' and token != '!':
+                arg1 = stack.pop()
+            if token == '%':
+                stack.append(arg1)
+            if token == '&' or token == '|' or token == '~' or token == '!':
+                arg2 = int(arg2)
+                if token != '~' and token != '!':
+                    arg1 = int(arg1)
+            if token == '~' or token == '!':
+                result = function(arg2)
+            else:
+                result = function(arg1, arg2)
             stack.append(result)
         print(stack)
     if len(stack) != 1:

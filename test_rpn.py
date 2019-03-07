@@ -27,7 +27,7 @@ class TestBasics(unittest.TestCase):
         self.assertEqual(8, result)
     def test_intdiv(self):
         result = rpn.calculate('5 2 //')
-        self.asvsertEqual(2, result)
+        self.assertEqual(2, result)
     def test_factorial(self):
         result = rpn.calculate('4 !')
         self.assertEqual(24, result)
