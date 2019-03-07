@@ -40,3 +40,7 @@ class TestBasics(unittest.TestCase):
     def test_bitNot(self):
         result = rpn.calculate('3 ~')
         self.assertEqual(-4, result)
+    def test_reuse(self):
+        previous = rpn.calculate('3 4 +')
+        result = rpn.calculate('4 :ans *')
+        self.assertEqual(28, result)

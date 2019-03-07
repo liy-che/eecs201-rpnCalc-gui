@@ -18,32 +18,40 @@ operators = {
     '~': operator.invert,
 }
 
+last = 0
+
 def calculate(arg):
     stack = []
+    global last
     for token in arg.split():
         try:
             token = float(token)
             stack.append(token)
         except ValueError:
-            function = operators[token]
-            arg2 = stack.pop()
-            if token != '~' and token != '!':
-                arg1 = stack.pop()
-            if token == '%':
-                stack.append(arg1)
-            if token == '&' or token == '|' or token == '~' or token == '!':
-                arg2 = int(arg2)
-                if token != '~' and token != '!':
-                    arg1 = int(arg1)
-            if token == '~' or token == '!':
-                result = function(arg2)
+            try:
+                function = operators[token]
+            except KeyError:
+                stack.append(last)
             else:
-                result = function(arg1, arg2)
-            stack.append(result)
+                arg2 = stack.pop()
+                if token != '~' and token != '!':
+                    arg1 = stack.pop()
+                if token == '%':
+                    stack.append(arg1)
+                if token == '&' or token == '|' or token == '~' or token == '!':
+                    arg2 = int(arg2)
+                    if token != '~' and token != '!':
+                        arg1 = int(arg1)
+                if token == '~' or token == '!':
+                    result = function(arg2)
+                else:
+                    result = function(arg1, arg2)
+                stack.append(result)
         print(stack)
     if len(stack) != 1:
         raise TypeError("Too many parameters")
-    return stack.pop()
+    last = stack.pop()
+    return last
 
 def main():
     while True:
