@@ -29,14 +29,14 @@ class TestBasics(unittest.TestCase):
         result = rpn.calculate('5 2 //')
         self.asvsertEqual(2, result)
     def test_factorial(self):
-        result = rpn.calculator('4 !')
+        result = rpn.calculate('4 !')
         self.assertEqual(24, result)
     def test_bitAnd(self):
-        result = rpn.calculator('3 1 &')
+        result = rpn.calculate('3 1 &')
         self.assertEqual(1, result)
     def test_bitOr(self):
-        result = rpn.calculator('3 1 |')
+        result = rpn.calculate('3 1 |')
         self.assertEqual(3, result)
     def test_bitNot(self):
-        result = rpn.calculator('3 ~')
+        result = rpn.calculate('3 ~')
         self.assertEqual(-4, result)
