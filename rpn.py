@@ -11,22 +11,30 @@ operators = {
     '^': operator.pow,
 }
 
+last = 0
+
 def calculate(arg):
     stack = []
+    global last
     for token in arg.split():
         try:
             token = float(token)
             stack.append(token)
         except ValueError:
-            function = operators[token]
-            arg2 = stack.pop()
-            arg1 = stack.pop()
-            result = function(arg1, arg2)
-            stack.append(result)
+            try:
+                function = operators[token]
+            except KeyError:
+                stack.append(last)
+            else:
+                arg2 = stack.pop()
+                arg1 = stack.pop()
+                result = function(arg1, arg2)
+                stack.append(result)
         print(stack)
     if len(stack) != 1:
         raise TypeError("Too many parameters")
-    return stack.pop()
+    last = stack.pop()
+    return last
 
 def main():
     while True:
