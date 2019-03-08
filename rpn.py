@@ -19,19 +19,29 @@ operators = {
 }
 
 last = 0
+repeat = 0
 
 def calculate(arg):
     stack = []
-    global last
+    global last, repeat
     for token in arg.split():
+        repeat = 0
         try:
             token = float(token)
             stack.append(token)
         except ValueError:
             try:
                 function = operators[token]
+                if token =='!' and len(stack) != 1:
+                        raise KeyError("Repeat")
             except KeyError:
-                stack.append(last)
+                if token == ':ans':
+                    stack.append(last)
+                if token == '!' and len(stack) != 1:
+                    repeat = 1
+                    numElt = len(stack)
+                    newArg = ' '.join(str(e) for e in stack)
+                    newArg = newArg + (op * (numElt - 1))
             else:
                 arg2 = stack.pop()
                 if token != '~' and token != '!':
@@ -46,6 +56,12 @@ def calculate(arg):
                     result = function(arg2)
                 else:
                     result = function(arg1, arg2)
+                op = ' ' + token
+                if repeat != 1:
+                    stack.append(result)
+            if repeat == 1:
+                result = calculate(newArg)
+                del stack[:] 
                 stack.append(result)
         print(stack)
     if len(stack) != 1:

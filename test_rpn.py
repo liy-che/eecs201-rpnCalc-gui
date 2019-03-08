@@ -44,3 +44,6 @@ class TestBasics(unittest.TestCase):
         previous = rpn.calculate('3 4 +')
         result = rpn.calculate('4 :ans *')
         self.assertEqual(28, result)
+    def test_repeat(self):
+        result = rpn.calculate('4 1 3 + !')
+        self.assertEqual(8, result)
