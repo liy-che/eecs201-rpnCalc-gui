@@ -63,7 +63,7 @@ def calculate(arg):
                 result = calculate(newArg)
                 del stack[:] 
                 stack.append(result)
-        print(stack)
+        #print(stack)
     if len(stack) != 1:
         raise TypeError("Too many parameters")
     last = stack.pop()
