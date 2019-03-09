@@ -1,6 +1,7 @@
 #! /usr/bin/env python3
 import rpn
 from tkinter import *
+import tkinter.messagebox
 
 # functions
 def getBtn(event, out):
@@ -10,12 +11,15 @@ def getInput():
 	text = display.get(0.0, INSERT)
 	try:
 		result = rpn.calculate(text)
-		display.insert
+		status.config(text=result)
+		
 	except Exception as e:
-		display.insert(END, e)
+		status.config(text=e)
 
 def clearDisplay():
 	display.delete(1.0, END)
+	status_text = 'ANS = ' + str(rpn.last)
+	status.config(text=status_text)
 
 def deleteChar():
 	display.delete("insert-1c")
@@ -80,7 +84,7 @@ delete = Button(bottomFrame, text='delete', bg='red', height=3, width=8, command
 repeat = Button(bottomFrame, text='repeat', bg='magenta', height=3, width=2)
 repeat.bind('<ButtonRelease>', lambda event: getBtn(event, '!'))
 ans = Button(bottomFrame, text='ANS', bg='magenta', height=3, width=2)
-#
+ans.bind('<ButtonRelease>', lambda event: getBtn(event, ':ans'))
 space = Button(bottomFrame, text='space', bg='blue', fg='white', height=1, width=36)
 space.bind('<ButtonRelease>', lambda event: getBtn(event, ' '))
 
@@ -117,9 +121,13 @@ display = Text(topFrame, height=5, width=28)
 display.config(font='Helvetica 15', bg='black', fg='white')
 display.pack()
 
+tkinter.messagebox.showinfo('Quick reminder', '''To calculate a + b, type in a b +
+Note: delimit by a single space. No space after last character.
+Clear before each new calculation.''')
+
 # status bar
 status_text = 'ANS = ' + str(rpn.last)
-status = Label(topFrame, text=status_text, bg='black', height=2)
+status = Label(topFrame, text=status_text, fg='white', bg='black', height=2, anchor=E, padx=5)
 status.pack(side=BOTTOM, fill=X)
 
 root.mainloop()
