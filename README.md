@@ -1,6 +1,6 @@
 # RPN Calculator with GUI
 
-A reverse polish notation calculator that supports integer and decimal operants in operations including:
+A desktop reverse polish notation calculator that supports integer and decimal operants in operations including:
 - basic arithmetics (+, -, *, /)
 - percent (%)
 - exponent (^)
@@ -9,6 +9,8 @@ A reverse polish notation calculator that supports integer and decimal operants 
 - bitwise operations (& | ~)
 - reuse (:ans)
 - repeat (!)
+
+![Calculator screenshot](demo.jpg)
 
 ## General Format 
 ```A B +```
