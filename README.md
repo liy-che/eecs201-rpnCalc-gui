@@ -10,7 +10,7 @@ A desktop reverse polish notation calculator that supports integer and decimal o
 - reuse (:ans)
 - repeat (!)
 
-![Calculator screenshot](demo.jpg)
+<img alt="RPN calculator app screenshot" src="https://github.com/liy-che/eecs201-rpnCalc-gui/blob/723a127f973844672ba9778416ba0db6892c7d4c/demo.jpg" width="50%">
 
 ## General Format 
 ```A B +```
